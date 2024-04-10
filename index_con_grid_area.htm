@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Espacio</title>
+    <style>
+      /* En este diseño tenemos:
+        - una primera sección que ocupa dos filas y dos columnas
+        - dos secciones en una segunda columna y en dos filas diferentes
+        - tres secciones en una fila en la parte inferior
+
+        Por ello lo más sencillo es usar un grid. El encabezado también lo vamos a 
+        meter en el grid ocupando toda una fila, pero podría ir fuera */
+      * {
+        margin: 0;
+        padding: 0;
+        font-size: 100%;
+      }
+      main {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        display: grid;
+        /* Definimos los diferentes elementos del grid */
+        grid-template-areas:
+          "encabezado encabezado encabezado"
+          "art1 art1 art2"
+          "art1 art1 art3"
+          "art4 art5 art6";
+        /* Espacio entre filas y columnas */
+        gap: 20px;
+        /* Para que no quede pegado a los bordes de la página *, pues gap no
+            soluciona esto */
+        margin: 10px;
+      }
+      main h1 {
+        /* Colocamos el h1 en el área encabezado del grid */
+        grid-area: encabezado;
+        font-size: 3rem;
+      }
+      section {
+        box-shadow: 2px 2px 4px rgb(203, 201, 201);
+        border: 1px solid rgb(203, 201, 201);
+        padding-bottom: 20px;
+        /* Queremos que el texto de los botones de cada seccion quede debajo. 
+            Una opción es que la sección sea de tipo flex y usar space-between que 
+            se encarga de dejar espacio entre los elementos pero no arriba y abajo, con
+            lo que el enlace irá debajo (aunque tenemos tamibén un margen en los a con lo que no
+            irá debajo de todo). 
+            Si la imagen y los textos que hay antes del enlace tienen todos la misma
+            altura en las tres secciones de la última fila, esto no sería necesario */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      /* Colocamos cada artículo en el área deseada del grid */
+      section:nth-of-type(1) {
+        grid-area: art1;
+      }
+      section:nth-of-type(2) {
+        grid-area: art2;
+      }
+      section:nth-of-type(3) {
+        grid-area: art3;
+      }
+      section:nth-of-type(4) {
+        grid-area: art4;
+      }
+      section:nth-of-type(5) {
+        grid-area: art5;
+      }
+      section:nth-of-type(6) {
+        grid-area: art6;
+      }
+      section h2,
+      section p {
+        margin: 20px;
+      }
+      section img {
+        max-width: 100%;
+        transition-property: filter;
+        transition-duration: 0.6s;
+      }
+      /* Hacemos que las imágenes de las secciones 4, 5 y 6 tengan un alto
+        del 100%, para que su alto sea el mismo. */
+      section:nth-of-type(n + 4) img {
+        height: 100%;
+      }
+      section img:hover {
+        filter: hue-rotate(70deg);
+      }
+      section p {
+        font-size: 0.9em;
+      }
+      section a {
+        background-color: rgb(67, 134, 234);
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        /* Para poder dar un ancho, el elemento no puede ser inline */
+        display: block;
+        /* Como otras veces usamos un margen auto y un width para centrar un elemento
+            de tipo bloque. Pero es este caso no podemos usar margin: auto, pues como también
+            poner el auto al margen superior e inferior, da problemas con la propiedad 
+            justify-content de Flexbox, no poniéndose abajo los enlaces.
+            Por ello usamos en su lugar margin-left y margin-right */
+        width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 5px 0;
+        font-size: 0.9em;
+        /* Queremos cambiar es espacio entre letras al pasar el ratón sobre el enlace */
+        transition-property: letter-spacing;
+        transition-duration: 1s;
+        /* Con esta propiedad podemos cambiar el comportamiento de la velocidade de la 
+            animación: más rápida al principio, más rápida al final, ... */
+        transition-timing-function: ease-in;
+      }
+      section a:hover {
+        letter-spacing: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Fotografía astronómica</h1>
+      <section>
+        <img src="imagenes/photo-1419242902214-272b3f66ee7a.avif" alt="" />
+        <h2>Lorem ipsum</h2>
+        <p>
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
+          reiciendis?
+        </p>
+        <img src="imagenes/photo-1451187580459-43490279c0fa.avif" alt="" />
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur,
+          doloremque.
+        </p>
+        <a href="">Leer más</a>
+      </section>
+      <section>
+        <img src="imagenes/photo-1464802686167-b939a6910659.avif" alt="" />
+        <h2>Lorem ipsum</h2>
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur,
+          doloremque.
+        </p>
+        <a href="">Leer más</a>
+      </section>
+      <section>
+        <img src="imagenes/photo-1543722530-d2c3201371e7.avif" alt="" />
+        <h2>Lorem ipsum</h2>
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur,
+          doloremque.
+        </p>
+        <a href="imagenes/premium_photo-1669839137417-caaf1a4e00a9.avif"
+          >Leer más</a
+        >
+      </section>
+      <section>
+        <img
+          src="imagenes/premium_photo-1672268927165-7cc73adb1016.avif"
+          alt=""
+        />
+        <h2>Lorem ipsum</h2>
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur,
+          doloremque.
+        </p>
+        <a href="">Leer más</a>
+      </section>
+      <section>
+        <img
+          src="imagenes/premium_photo-1679756099018-32b9fec91606.avif"
+          alt=""
+        />
+        <h2>Lorem ipsum</h2>
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur,
+          doloremque.
+        </p>
+        <a href="">Leer más</a>
+      </section>
+      <section>
+        <img src="imagenes/photo-1464802686167-b939a6910659.avif" alt="" />
+        <h2>Lorem ipsum</h2>
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur,
+          doloremque.
+        </p>
+        <a href="">Leer más</a>
+      </section>
+    </main>
+  </body>
+</html>
